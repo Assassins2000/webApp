@@ -9,7 +9,7 @@ class UserService {
 
     async changeBalance(userId, ammount) {
         const user = await this.#userData.getUserById(userId);
-        if (!user) return { message: 'User not found' };
+        if (!user) throw new Error('User not found');
         const balance = await this.#userData.changeBalance(userId, ammount);
         return balance;
     }
