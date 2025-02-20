@@ -1,10 +1,21 @@
 const express = require('express');
+const { Umzug, SequelizeStorage } = require('umzug');
+
 const sequelize = require('./config/database');
 const User = require('./models/user');
 const userRoutes = require('./routes/userRoutes');
-const app = express();
 
+const app = express();
 app.use(express.json());
+
+const umzug = new Umzug({
+    migrations: {
+        glob: 'migrations/*.js'
+    },
+    context: sequelize.getQueryInterface(),
+    storage: new SequelizeStorage({ sequelize }),
+    logger: console,
+});
 
 (async () => {
     try {
@@ -13,7 +24,7 @@ app.use(express.json());
 
         await sequelize.sync();
 
-        await User.create({ name: 'John', balance: 10000 });
+        await umzug.up();
 
         app.use('/api/users', userRoutes);
 
