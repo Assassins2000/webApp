@@ -2,28 +2,28 @@ const User = require('../models/user');
 const sequelize = require('../config/database');
 
 class UserData {
-    async changeBalance(userId, ammount) {
+    async changeBalance(userId, amount) {
         try {
             // Атомарное обновление баланса
-            const [result] = await sequelize.query(
+            const [results] = await sequelize.query(
               `UPDATE users 
                SET balance = balance + :amount
                WHERE id = :userId AND balance + :amount >= 0 
                RETURNING balance`,
               {
-                replacements: { userId, amount: ammount },
+                replacements: { userId, amount: amount },
                 type: sequelize.QueryTypes.UPDATE
               }
             );
         
-            if (!result || result.length === 0) {
+            if (!results || results.length === 0) {
                 throw new Error('Insufficient funds or user not found');
             }
         
-            return result[0].balance;
+            return results[0].balance;
         
         } catch (error) {
-            throw error;
+            throw new Error(`Failed to update balance: ${error.message}`);
         }
     }
 
