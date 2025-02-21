@@ -5,12 +5,12 @@ const changeBalanceSchema = {
     type: 'object',
     properties: {
         userId: { type: 'integer', minimum: 1 },
-        ammount: { 
+        amount: { 
             type: 'integer', 
             not: { const: 0 }
          },
     },
-    required: ['userId', 'ammount'],
+    required: ['userId', 'amount'],
     additionalProperties: false,
 };
 

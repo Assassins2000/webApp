@@ -8,9 +8,9 @@ class UserController {
     }
 
     async changeBalance(req, res) {
-        const { userId, ammount } = req.body;
+        const { userId, amount } = req.body;
         try {
-            const balance = await this.#userService.changeBalance(userId, ammount);
+            const balance = await this.#userService.changeBalance(userId, amount);
             res.status(200).json({balance});
         } catch (error) {
             res.status(400).json({ error: error.message });
