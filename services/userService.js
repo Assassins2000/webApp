@@ -7,10 +7,10 @@ class UserService {
         this.#userData = new UserData();
     }
 
-    async changeBalance(userId, ammount) {
+    async changeBalance(userId, amount) {
         const user = await this.#userData.getUserById(userId);
         if (!user) throw new Error('User not found');
-        const balance = await this.#userData.changeBalance(userId, ammount);
+        const balance = await this.#userData.changeBalance(userId, amount);
         return balance;
     }
 }
