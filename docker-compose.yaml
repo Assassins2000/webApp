@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+    postgres17.2:
+        image: postgres
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USERNAME: postgres
+            POSTGRES_PASSWORD: 1
