@@ -11,7 +11,7 @@ class UserData {
                WHERE id = :userId AND balance + :amount >= 0 
                RETURNING balance`,
               {
-                replacements: { userId, amount: amount },
+                replacements: { userId, amount },
                 type: sequelize.QueryTypes.UPDATE
               }
             );
