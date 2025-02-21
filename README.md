@@ -24,3 +24,10 @@
     DB_PASSWORD=postgres
     DB_NAME=postgres
   4. Выполнить команды npm run start. Все таблицы в БД будут созданы автоматически.
+  5. Для изменения баланса пользователя необходимо выполнить запрос на PUT http://localhost:3000/api/users/changeBalance с телом:
+    {
+      "userId": 1,
+      "amount": 2
+    }
+  6. Для проверки работы приложения можно использовать postman.
+  
