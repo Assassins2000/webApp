@@ -4,6 +4,9 @@ const { Umzug, SequelizeStorage } = require('umzug');
 const sequelize = require('./config/database');
 const User = require('./models/user');
 const userRoutes = require('./routes/userRoutes');
+const taskRoutes = require('./routes/taskRoutes');
+// Запуск задач
+const CronService = require('./tasks/cronService');
 
 const app = express();
 app.use(express.json());
@@ -17,6 +20,9 @@ const umzug = new Umzug({
     logger: console,
 });
 
+const cronService = new CronService();
+cronService.init(); 
+
 (async () => {
     try {
         await sequelize.authenticate();
@@ -27,6 +33,7 @@ const umzug = new Umzug({
         await umzug.up();
 
         app.use('/api/users', userRoutes);
+        app.use('/api/tasks', taskRoutes);
 
         const PORT = process.env.PORT || 3000;
 
